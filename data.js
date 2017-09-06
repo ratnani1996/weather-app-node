@@ -1,5 +1,7 @@
 const request = require('request');
 
+require('dotenv').config({path : './variables.env'});
+
 function send_data(address, callback){
     var encodedAddress = encodeURIComponent(address);
     request({
@@ -16,7 +18,7 @@ function send_data(address, callback){
             var lat = body.results[0].geometry.location.lat;
             var lng = body.results[0].geometry.location.lng;
             request({
-            url :`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=67cb27171c699c69d60bc1208f1af408`,
+            url :`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${process.env.WEATHER_API}`,
             json :true
             }, (error, response, body)=>{
                 if(error){
